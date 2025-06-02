@@ -1,0 +1,13 @@
+// src/assets/styles/colors/blue.scss
+
+$background-color: #f5f3ff; // 页面背景色
+$text-color: #333;          // 主文字颜色
+$theme-color: #003472;      // 新的主题色（深蓝色）
+$link-color: #003472;       // 链接颜色，使用新的主题色
+$link-hover-color: darken($theme-color, 10%); // 悬停链接颜色，使用Sass函数加深主题色
+$button-bg: #003472;        // 按钮背景色，使用新的主题色
+$button-hover-bg: darken($theme-color, 10%); // 按钮悬停时的背景色，同样加深一点
+$card-bg: #ffffff;          // 卡片背景色
+$border-color: #ddd;        // 边框颜色
+$input-bg: #fff;            // 输入框背景色
+$input-border: #ccc;        // 输入框边框颜色

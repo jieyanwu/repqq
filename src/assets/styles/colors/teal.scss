@@ -1,0 +1,13 @@
+// src/assets/styles/colors/purple.scss
+
+$background-color: #f5f3ff; // 背景色
+$text-color: #333;          // 文字颜色
+$theme-color: #3eede7;      // 更新后的主色调（原紫色改为青绿色）
+$link-color: #3eede7;       // 链接颜色，使用新的主题色
+$link-hover-color: #2eb6b6; // 悬停链接颜色，稍微加深一点以提供视觉反馈
+$button-bg: #3eede7;        // 按钮背景色，使用新的主题色
+$button-hover-bg: #2eb6b6;  // 按钮悬停时的背景色，同样加深一点
+$card-bg: #ffffff;          // 卡片背景色
+$border-color: #ddd;        // 边框颜色
+$input-bg: #fff;            // 输入框背景色
+$input-border: #ccc;        // 输入框边框颜色
