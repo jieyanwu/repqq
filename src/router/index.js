@@ -16,6 +16,21 @@ const routes = [
     path: '/love',
     name: 'LoverPage',
     component: () => import('../pages/loverPage.vue')
+  },
+  {
+    path: '/login',
+    name: 'LoginPage',
+    component: () => import('../pages/loginview/LoginPage.vue')
+  },
+  {
+    path: '/register',
+    name: 'RegisterPage',
+    component: () => import('../pages/loginview/registerview.vue')
+  },
+  {
+    path: '/none',
+    name: 'RegisterPage',
+    component: () => import('../pages/none.vue')
   }
 ]
 

@@ -123,4 +123,39 @@
       background-color: darken($theme-color, 10%);
     }
   }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .app-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .app-card {
+    padding: 1rem;
+  }
+
+  .app-logo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .app-name {
+    font-size: 1rem;
+  }
+
+  .app-description {
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .download-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
 </style>

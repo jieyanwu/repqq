@@ -1,29 +1,23 @@
 <template>
   <div class="app-container">
+    <div class="search">
+      <h1><a href="https://pc.qq.com" target="_blank" style="color: var(font-size-base);text-decoration: none;color: aliceblue;">腾讯软件中心</a></h1>
+      <p>此网站在 pc.qq.com 获取接口并获取数据</p>
+      <p v-if="this.datas[0]">当前版本：{{ datas[0]?.ver }}</p>
+      <p v-else>当前版本：0.0.0</p>
+      <div class="search-controls">
+        <input type="text" v-model="searchKeyword" placeholder="搜索..." @keyup.enter="handleSearch"
+          class="search-input" />
+        <button @click="handleSearch" class="search-button">搜索</button>
+      </div>
+    </div>
     <!-- 数据为空时的占位 -->
     <div v-if="datas.length === 0" class="loading-placeholder">
-      <div v-if="isLoading">数据加载中...</div>
+      <div v-if="isLoading" style="display: flex;align-items: center;justify-content: center;"><div class="loading-spinner"></div>数据加载中...</div>
       <div v-else>暂无数据</div>
     </div>
-
     <!-- 主体内容 -->
     <div v-else class="full-content">
-      <div class="search">
-        <h1><a href="https://pc.qq.com" target="_blank" style="color: var(font-size-base);">腾讯软件中心</a></h1>
-        <p>此网站在 pc.qq.com 获取接口并获取数据</p>
-        <p>当前版本：{{ datas[0]?.ver }}</p>
-        <div class="search-controls">
-          <input
-            type="text"
-            v-model="searchKeyword"
-            placeholder="搜索..."
-            @keyup.enter="handleSearch"
-            class="search-input"
-          />
-          <button @click="handleSearch" class="search-button">搜索</button>
-        </div>
-      </div>
-
       <section class="container">
         <AppList :datas="datas" />
       </section>
@@ -63,6 +57,7 @@ export default {
       try {
         const url = `http://127.0.0.1:5000/api/softdata?limit=${this.limit}&page=${this.page}`;
         const response = await axios.get(url);
+        // this.datas = []
         this.datas = this.datas.concat(response.data);
         this.page++;
       } catch (error) {
@@ -129,7 +124,20 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 .search {
   text-align: center;
   margin-bottom: 2rem;
@@ -180,5 +188,45 @@ export default {
   max-width: 100%;
   padding: 0 1rem;
   box-sizing: border-box;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+
+  .search {
+    margin-bottom: 1rem;
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .search-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .search-button {
+    width: 100%;
+    max-width: 300px;
+    margin-top: 0.5rem;
+  }
+
+  .container {
+    padding: 0;
+  }
 }
 </style>
