@@ -18,19 +18,14 @@ const routes = [
     component: () => import('../pages/loverPage.vue')
   },
   {
-    path: '/login',
-    name: 'LoginPage',
-    component: () => import('../pages/loginview/LoginPage.vue')
+    path: '/timeline',
+    name: 'RegisterPage',
+    component: () => import('../pages/timeLine.vue')
   },
   {
-    path: '/register',
-    name: 'RegisterPage',
-    component: () => import('../pages/loginview/registerview.vue')
-  },
-  {
-    path: '/none',
-    name: 'RegisterPage',
-    component: () => import('../pages/none.vue')
+    path: '/about',
+    name: 'About',
+    component: () => import('../pages/AboutPage.vue')
   }
 ]
 

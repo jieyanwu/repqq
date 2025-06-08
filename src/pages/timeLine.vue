@@ -80,10 +80,12 @@
   </script>
   
   <style scoped lang="scss">
+  @import "@/assets/styles/variables.scss";
   .timeline-container {
     min-height: 100vh;
     padding: 4rem 2rem;
-    background: linear-gradient(135deg, #c1dcfa 0%, #e8f4fc 100%);
+    background: $background-color;
+    border-radius: 2rem;
   }
   
   .timeline {

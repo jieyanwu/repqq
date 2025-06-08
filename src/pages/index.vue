@@ -3,7 +3,7 @@
     <header class="hero-section">
       <h1>欢迎来到我的项目</h1>
       <p>这是一个简洁美观的首页模板，适用于任何 Vue 项目。</p>
-      <a href="/about" class="btn-primary">了解更多</a>
+      <!-- <a href="/about" class="btn-primary">了解更多</a> -->
     </header>
 
     <section class="features-section">
@@ -41,14 +41,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$primary-color: #4f46e5;
-$secondary-color: #6366f1;
-$background-gradient: linear-gradient(135deg, $primary-color, $secondary-color);
-$text-color: white;
+@import "@/assets/styles/variables.scss";
+
+// $primary-color: #4f46e5;
+// $secondary-color: #6366f1;
+// $background-gradient: linear-gradient(135deg, $primary-color, $secondary-color);
+// $text-color: white;
 
 .home-container {
   min-height: 100vh;
-  background: $background-gradient;
+  background: $background-color;
   color: $text-color;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -78,8 +80,9 @@ $text-color: white;
 .btn-primary {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: $text-color;
   border-radius: 8px;
   text-decoration: none;
   transition: background-color 0.3s ease;
@@ -107,7 +110,9 @@ $text-color: white;
 }
 
 .feature-card {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: rgb(255, 255, 255,0.2);
+  //添加模糊玻璃效果
+  backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;

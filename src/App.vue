@@ -10,7 +10,7 @@
       <router-link to="/love" class="router-link">情人相册</router-link>
     </li>
     <li>
-      <router-link to="/none" class="router-link">none</router-link>
+      <router-link to="/timeline" class="router-link">TimeLine</router-link>
     </li>
     <!-- <li>
       <router-link to="/login" class="router-link">登录/注册</router-link>
@@ -133,7 +133,7 @@ body {
   justify-content: center;
   list-style-type: none;
   padding: 1rem;
-  background-color: #eee;
+  background-color: #f3f3f3;
   border-radius: 12px;
   box-shadow: $shadow;
   margin-bottom: 2rem;
@@ -141,14 +141,14 @@ body {
   li {
     margin: 0.5rem 0.75rem;
     padding: 0.5rem 1rem;
-    background-color: $theme-color;
-    color: white;
+    background-color: $theme-color !important; // 强制使用主题色
+    color: white !important; // 强制使用白色文字
     border-radius: 8px;
     font-size: 1rem;
     transition: background-color $transition-time;
 
     &:hover {
-      background-color: $link-hover-color;
+      background-color: darken($theme-color, 10%) !important; // 强制使用暗色变体
       cursor: pointer;
     }
   }
@@ -160,8 +160,6 @@ body {
   align-items: center;
   margin-bottom: 2rem;
 }
-
-
 .music-control {
   position: fixed;
   bottom: 3rem;
@@ -174,21 +172,17 @@ body {
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-
   &:hover {
     background: white;
     transform: scale(1.05);
   }
 }
-
 .router-link {
   color: white;
   text-decoration: none; // 取消默认的下划线
-
   &:hover {
     text-decoration: underline; // 悬停时显示下划线
   }
-
   // 取消点击时的下划线
   &:active,
   &:focus {
@@ -206,11 +200,18 @@ body {
   gap: 0.5rem;
   z-index: 100;
   span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
     font-size: 1rem;
     margin-bottom: 0.5rem;
     color: white;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    background: var(--theme-color);
+    background: #f3f3f3;// 使用主题变量
+    // box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     animation: pulse 2s infinite;
     @keyframes pulse {
       0% {

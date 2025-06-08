@@ -9,6 +9,8 @@
       上传图片
     </button>
 
+    <LoadingSpinner v-if="isLoading" />
+
     <!-- 上传弹窗 -->
     <div v-if="showModal" class="modal-overlay">
       <div class="modal-content">
@@ -25,20 +27,27 @@
     <!-- <div v-if="currentSongTitle" class="now-playing">
       正在播放：{{ currentSongTitle }}
     </div> -->
-
     <!-- 相册墙 -->
     <div class="photo-gallery">
-      <div v-for="(photo, index) in photos" :key="index" class="photo-item"
-        :style="{ backgroundImage: `url(${photo.url})` }">
-        <div class="photo-caption">{{ photo.caption }}</div>
-      </div>
+      <PhotoItem 
+        v-for="(photo, index) in photos" 
+        :key="index" 
+        :photo="photo" 
+      />
     </div>
   </div>
 </template>
 
 <script>
+import PhotoItem from '@/components/PhotoItem.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+
 export default {
   name: 'LoverPage',
+  components: {
+    PhotoItem,
+    LoadingSpinner
+  },
   data() {
     return {
       showModal: false,
@@ -48,7 +57,7 @@ export default {
       error: null,
       pagination: {
         page: 1,
-        limit: 10,
+        limit: 50,
         total: 0
       }
     };
@@ -127,125 +136,50 @@ export default {
   position: relative;
   min-height: 100vh;
   border-radius: 2rem;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  background: $background-color;
   padding: 2rem;
   text-align: center;
 }
 
 .love-title {
   font-size: 3rem;
-  color: white;
+  color: $text-white;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   margin-bottom: 2rem;
   animation: pulse 2s infinite;
 }
 
 .now-playing {
-  color: white;
+  color: $text-white;
   font-size: 1.2rem;
   margin-bottom: 2rem;
 }
 
 .photo-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  columns: 300px;
+  column-gap: 2rem;
   padding: 1rem;
-}
-
-.photo-item {
-  height: 300px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 16px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  position: relative;
-  transition: transform 0.3s ease;
-  overflow: hidden;
-
-  &:hover {
-    transform: scale(1.05);
-
-    .photo-caption {
-      transform: translateY(0);
-    }
-  }
-}
-
-.photo-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 1rem;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
-  white-space: nowrap; /* 禁止换行 */
-  overflow: hidden; /* 隐藏溢出内容 */
-  text-overflow: ellipsis; /* 显示省略号 */
-  max-height: 20px; /* 固定高度 */
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.05);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .love-container {
-    padding: 1.5rem;
-  }
-
-  .love-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .photo-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 0.5rem;
-  }
-
+  
   .photo-item {
-    height: 200px;
-    
-    &:hover {
-      transform: none;
-    }
-  }
-
-  .photo-caption {
-    padding: 0.8rem;
-    font-size: 0.9rem;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 }
 
 .upload-button {
   padding: 10px 20px;
-  background-color: #ff6b6b;
-  color: white;
+  background-color: $upload-button-color;
+  color: $text-white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
   font-size: 1rem;
   margin-bottom: 20px;
-  transition: background-color 0.3s;
+  transition: background-color $transition-time;
 
   &:hover {
-    background-color: #ff5252;
+    background-color: $upload-button-hover;
   }
 }
 
@@ -263,15 +197,24 @@ export default {
 }
 
 .modal-content {
-  background: white;
+  background: $text-white;
   padding: 2rem;
   border-radius: 10px;
   width: 90%;
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  h3 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
 }
 
 .url-input {
-  width: 100%;
+  width: 80%;  // 调整为80%宽度
+  margin: 15px auto;  // 使用auto实现水平居中
   padding: 10px;
   margin: 15px 0;
   border: 1px solid #ddd;
@@ -284,54 +227,33 @@ export default {
   gap: 10px;
 }
 
-.cancel-button, .confirm-button {
+.cancel-button {
   padding: 8px 16px;
+  background-color: $modal-cancel-color;
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-.cancel-button {
-  background-color: #f1f1f1;
-}
-
 .confirm-button {
-  background-color: #4a90e2;
-  color: white;
+  padding: 8px 16px;
+  background-color: $modal-button-color;
+  color: $text-white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
-
-/* 移动端适配 */
-@media (max-width: 768px) {
-  .modal-content {
-    padding: 1.5rem;
-  }
-
-  .love-container {
-    padding: 1.5rem;
-  }
-
-  .love-title {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .photo-gallery {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
-    padding: 0.5rem;
-  }
-
-  .photo-item {
-    height: 200px;
-    
-    &:hover {
-      transform: none;
-    }
-  }
-
-  .photo-caption {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-  }
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
+// 移除原来的.photo-item和.photo-caption样式
 </style>

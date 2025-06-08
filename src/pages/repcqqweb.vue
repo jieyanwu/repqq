@@ -13,7 +13,7 @@
     </div>
     <!-- 数据为空时的占位 -->
     <div v-if="datas.length === 0" class="loading-placeholder">
-      <div v-if="isLoading" style="display: flex;align-items: center;justify-content: center;"><div class="loading-spinner"></div>数据加载中...</div>
+      <LoadingSpinner v-if="isLoading" />
       <div v-else>暂无数据</div>
     </div>
     <!-- 主体内容 -->
@@ -28,11 +28,13 @@
 <script>
 import axios from 'axios';
 import AppList from '@/components/AppList.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
 
 export default {
   name: 'ReApp',
   components: {
-    AppList
+    AppList,
+    LoadingSpinner
   },
   data() {
     return {
@@ -93,13 +95,16 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/styles/variables.scss";
-@import '@/assets/styles/colors/blue.scss';
+// @import '@/assets/styles/colors/blue.scss';
 
+*{
+  color: $text-color !important;
+}
 
 .app-container {
+  background: $background-color;
   min-height: 100vh;
   border-radius: 2rem;
-  background: linear-gradient(135deg, $theme-color 0%, lighten($theme-color, 20%) 100%);
   color: white;
   padding: 2rem 1rem;
   display: flex;
@@ -107,36 +112,32 @@ export default {
   align-items: center;
 }
 
-.loading-placeholder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-size: 1.5rem;
-  text-align: center;
-  color: white;
-}
 
+// 移除以下样式
+// .loading-spinner {
+//   display: inline-block;
+//   width: 20px;
+//   height: 20px;
+//   border: 3px solid rgba(255,255,255,0.3);
+//   border-radius: 50%;
+//   border-top-color: white;
+//   animation: spin 1s ease-in-out infinite;
+//   margin-right: 10px;
+//   
+//   + span {
+//     animation: none;
+//   }
+// }
+
+// @keyframes spin {
+//   to { transform: rotate(360deg); }
+// }
 .full-content {
   width: 100%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.loading-spinner {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255,255,255,0.3);
-  border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s ease-in-out infinite;
-  margin-right: 10px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 .search {
   text-align: center;
@@ -154,32 +155,32 @@ export default {
 
 .search-input {
   padding: 8px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.6);
   border-radius: 4px;
   font-size: 14px;
   width: 200px;
-  color: white;
-  background: #55aceb;
-  background-color: rgba(255, 255, 255, 0.1);
+  color: $text-white;
+  background: $search-input-bg;
+  background-color: rgba(255, 255, 255, 0.4);
 
   &:focus {
     outline: none;
-    border-color: white;
-    box-shadow: 0 0 0 2px rgba(white, 0.3);
+    border-color: $text-white;
+    box-shadow: 0 0 0 2px rgba($text-white, 0.3);
   }
 }
 
 .search-button {
   padding: 8px 16px;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background-color: $button-bg;
+  color: $text-white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: $search-input-hover;
   }
 }
 
